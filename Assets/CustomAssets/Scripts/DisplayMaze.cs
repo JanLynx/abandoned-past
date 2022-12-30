@@ -40,21 +40,26 @@ public class DisplayMaze : MonoBehaviour {
 				if (charPos < 0 || !visitedCells[r,c]) { //charPos < 0 -> there is no index found with this symbol and the cell can be visited -> no island
 					continue;
 				}
-				Instantiate(shapes [charPos], new Vector3 (r * scale, 0, c * scale), shapes[charPos].transform.rotation);
+
+                if (c == 1 && r == 1)
+                {
+                    continue;
+                }
+                Instantiate(shapes [charPos], new Vector3 (r * scale, 0, c * scale), shapes[charPos].transform.rotation);
 
 				//Setting the floating torches
 				if (r%distance != 0 || setTorch) { //not every *distance*th row or if a torch already set in this column
 					continue;
 				}
 
-				if((charPos == 2 || charPos == 3 || charPos == 4 || charPos == 5)) { //Only choose corners for setting torches
-					Instantiate (shapes [torchPos], new Vector3 (r * scale, 0, c * scale), shapes[torchPos].transform.rotation);
-					setTorch = true;
-				}
+				//if((charPos == 2 || charPos == 3 || charPos == 4 || charPos == 5)) { //Only choose corners for setting torches
+				//	Instantiate (shapes [torchPos], new Vector3 (r * scale, 0, c * scale), shapes[torchPos].transform.rotation);
+				//	setTorch = true;
+				//}
 
 			}
 		}
-		TransformFinish.setPositionFinish(visitedCells, MazeGenerator.mapRows, MazeGenerator.mapColumns, scale);
+		// TransformFinish.setPositionFinish(visitedCells, MazeGenerator.mapRows, MazeGenerator.mapColumns, scale);
 	}
 
 	private int getVisitedCellsCount(bool[,] visitedCells) {
